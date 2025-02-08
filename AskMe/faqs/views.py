@@ -9,6 +9,13 @@ from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
   
 # Create your views here.
+#views - responsible for handling HTTP reqs and returning HTTP resps. 
+#acts as a bridge between the models (database) and the templates or API responses.
+# user sends a request (GET, POST, etc.).
+# django routes the request to the appropriate view as defined in urls.py.
+# The view processes the request (fetching data, performing logic).
+# The view returns a response (HTML page, JSON data, etc.).
+
 class FAQViewSet(viewsets.ModelViewSet):
     queryset = FAQ.objects.all()
     serializer_class = FAQSerializer
