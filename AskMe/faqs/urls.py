@@ -4,11 +4,12 @@ from .views import FAQViewSet
 
 router = DefaultRouter()
 router.register(r'faqs', FAQViewSet)
-# The DefaultRouter creates these URL patterns:
-
 # faqs/ → 'faq-list'
 # faqs/<pk>/ → 'faq-detail'
+#register -> ViewSets
+#automatically generates URLs for API views of CRUD operations
 
+#maps URLs to views i.e only single http method
 urlpatterns = [
     path('', include(router.urls)), 
 ]
