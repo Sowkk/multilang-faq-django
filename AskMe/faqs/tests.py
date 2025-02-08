@@ -10,31 +10,31 @@ import json
 class TestFAQAPI:
     @pytest.fixture(autouse=True)
     def setup(self):
-        # Create a test FAQ before each test
+        #create test FAQ before each test
         self.faq = FAQ.objects.create(
             question="Test FAQ?",
             answer="Test Answer"
         )
         yield
-        #Cleanup after each test
+        #cleanup after each test
         FAQ.objects.all().delete()
         cache.clear()
 
     def test_caching(self, client):
         url = reverse('faq-list')
 
-        # Clear any existing cache
+        #clear existing cache
         cache.delete('faqs_en')
 
-        # First request - should hit database     
+        #first request - should hit database     
         response1 = client.get(url)
         assert response1.status_code == status.HTTP_200_OK
         
-        # Check cache
+        #check cache
         cached_data = cache.get('faqs_en')
         assert cached_data is not None
         
-         # Second request - should hit cache
+         #second request - should hit cache
         response2 = client.get(url)
         assert response2.data == response1.data
    
@@ -47,7 +47,7 @@ class TestFAQAPI:
         }
         response = client.post(url, data, format='json')
         assert response.status_code == status.HTTP_201_CREATED
-        assert FAQ.objects.count() == 2 #setup+new
+        assert FAQ.objects.count() == 2 #setup + new
 
     def test_update_faq(self, client):
         url = f'/api/faqs/{self.faq.id}/'
@@ -85,7 +85,6 @@ class TestFAQAPI:
             answer="Language Answer"
         )
         
-        # Test different languages
         languages = ['en', 'hi', 'bn']
         for lang in languages:
             response = client.get(f"{reverse('faq-list')}?lang={lang}")
