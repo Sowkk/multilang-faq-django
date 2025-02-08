@@ -36,7 +36,6 @@ class FAQAdmin(admin.ModelAdmin):
     question_preview.short_description = 'Question'
     
     def view_translations(self, obj):
-        # Create link to filtered translation list
         url = (
             reverse("admin:faqs_faqtranslation_changelist")
             + "?"
