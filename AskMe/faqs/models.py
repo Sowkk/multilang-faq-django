@@ -10,7 +10,7 @@ def translate_text(text, dest_lang):
         translation = translator.translate(text, dest=dest_lang)
         return translation.text
     except Exception as e:
-        return text  # Fallback to original text if translation fails
+        return text  # fallback to english if translation fails
     
 class FAQ(models.Model):
     question = models.TextField()
@@ -29,8 +29,8 @@ class FAQ(models.Model):
         
         if is_new:
                         
-            # Auto-translate to other languages
-            languages = ['hi', 'bn', 'te', 'ta', 'ur', 'ml', 'ko', 'zh-TW']  # Add more as needed
+            # translate to other languages
+            languages = ['hi', 'bn', 'te', 'ta', 'ur', 'ml', 'ko', 'zh-TW']
             for lang in languages:
                 translated_question = translate_text(self.question, lang)
                 translated_answer = translate_text(self.answer, lang)
@@ -42,14 +42,14 @@ class FAQ(models.Model):
                     answer=translated_answer
                 )
     def __str__(self):
-        return self.question[:50]  # Helpful for admin interface
+        return self.question[:50]
     
-# FAQ Translation Model:
+
 class FAQTranslation(models.Model):
     faq = models.ForeignKey(FAQ, on_delete=models.CASCADE, related_name='translations')
     language = models.CharField(max_length=10)
     question = models.TextField()
-    answer = RichTextField()  # For WYSIWYG content
+    answer = RichTextField() 
 
     class Meta:
         unique_together = ['faq', 'language']
