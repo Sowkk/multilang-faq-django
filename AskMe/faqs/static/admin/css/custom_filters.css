@@ -22,12 +22,10 @@
 
 #changelist-filter li.selected a {
     font-weight: bold;
-    color: #378cb6 !important; /* Change color */
+    color: #378cb6 !important;
     font-size: 14px !important;
 }
-/* .action-checkbox-column{
-} */
-/* Enhance list display */
+
 #result_list thead th {
     text-align: center;
     font-size: 14px !important;
@@ -38,7 +36,6 @@
     padding: 15px 10px !important;
 }
 
-/* Style the translation link */
 .view-translations a {
     color: #447e9b;
     text-decoration: none;
